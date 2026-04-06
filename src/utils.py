@@ -26,7 +26,7 @@ def get_date_taken(path):
         img = Image.open(path)
         exif = img.getexif()
         if exif:
-            date = exif.get(36867)
+            date = exif.get(36867) # EXIF tag for DateTimeOriginal
             if date:
                 return datetime.strptime(date, "%Y:%m:%d %H:%M:%S")
     except:
@@ -79,3 +79,61 @@ def copy_file(src, dst):
     """
     if not os.path.exists(dst):
         shutil.copy2(src, dst)
+
+
+def process_gallery(source, target, verbose=True):
+    """
+    Gallery sorting function
+
+    - Sorts photos and videos by date
+    - Separates screenshots
+    - Removes duplicates using md5 hash
+
+    source: source folder
+    target: target folder
+    verbose: print log messages
+    """
+    seen_hashes = {}  # hash -> (путь к файлу, дата)
+
+    for root, dirs, files in os.walk(source):
+        for file in files:
+            path = os.path.join(root, file)
+
+            file_type = get_file_type(file)
+            if not file_type:
+                continue  # skip unsupported files
+
+            date = get_date_taken(path)
+            year = str(date.year)
+            month = f"{date.month:02}"
+
+            # determine subfolder
+            if file_type == "photo" and is_screenshot(file):
+                subfolder = "screenshots"
+            else:
+                subfolder = file_type
+
+            target_folder = os.path.join(target, year, month, subfolder)
+            os.makedirs(target_folder, exist_ok=True)
+
+            destination = os.path.join(target_folder, file)
+            h = file_hash(path)
+
+            if h in seen_hashes:
+                existing_path, existing_date = seen_hashes[h]
+                if date < existing_date:
+                    # New file is older → replace the existing file
+                    os.remove(existing_path)
+                    copy_file(path, destination)
+                    seen_hashes[h] = (destination, date)
+                    if verbose:
+                        print(f"🔄 {file} (старее) заменил дубликат → {target_folder}")
+                else:
+                    if verbose:
+                        print(f"❌ {file} дубликат, пропущен")
+                continue
+            else:
+                copy_file(path, destination)
+                seen_hashes[h] = (destination, date)
+                if verbose:
+                    print(f"✔ {file} → {target_folder}")
