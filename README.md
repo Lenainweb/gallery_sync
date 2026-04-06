@@ -34,7 +34,7 @@ pip install -r requirements/requirements.txt
 ## Использование / Usage
 
 ```bash
-python main.py <SOURCE_FOLDER> <TARGET_FOLDER>
+python src/main.py <SOURCE_FOLDER> <TARGET_FOLDER>
 ```
 
 ### Структура организованных файлов / Output Structure
