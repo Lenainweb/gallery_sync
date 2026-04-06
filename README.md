@@ -1,28 +1,21 @@
-# gallery_sync
-Скрипт для организации фото и видео по дате с поддержкой скриншотов и удалением дубликатов.  
+# gallery_sync  
 Organize your photos and videos by date, handle screenshots, and remove duplicates.
 
 ---
 
 ## Особенности / Features
 
-- Поддержка фото: `.jpg`, `.jpeg`, `.png`, `.heic`  
-  Photo support: `.jpg`, `.jpeg`, `.png`, `.heic`
+- Photo support: `.jpg`, `.jpeg`, `.png`, `.heic`, `.gif`, `.bmp`, `.tif`, `.tiff`, `.webp`
 
-- Поддержка видео: `.mp4`, `.mov`, `.avi`, `.mkv`  
-  Video support: `.mp4`, `.mov`, `.avi`, `.mkv`
+- Video support: `.mp4`, `.mov`, `.avi`, `.mkv`, `.wmv`, `.flv`, `.webm`, `.mts`, `.m2ts`, `.3gp`
 
-- Скриншоты выделяются в отдельную папку `screenshots`  
-  Screenshots are placed in a separate `screenshots` folder
+- Screenshots are placed in a separate `screenshots` folder
 
-- Поддержка английских и русских названий скриншотов (`screenshot`, `screen`, `Снимок экрана`)  
-  Supports English and Russian screenshot names (`screenshot`, `screen`, `Снимок экрана`)
+- Supports English and Russian screenshot names (`screenshot`, `screen`, `Снимок экрана`)
 
-- Рекурсивная обработка всех подпапок исходной директории  
-  Recursively processes all subfolders in the source directory
+- Recursively processes all subfolders in the source directory
 
-- Удаление дубликатов по содержимому, оставляя файл в более ранней папке  
-  Removes duplicate files by content, keeping the file in the earliest folder
+- Removes duplicate files by content, keeping the file in the earliest folder
 
 ---
 
