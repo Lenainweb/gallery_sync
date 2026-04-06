@@ -2,10 +2,20 @@ import os
 import shutil
 import hashlib
 from datetime import datetime
+
 from PIL import Image
+from pillow_heif import register_heif_opener
+
 
 from config import PHOTO_EXT, VIDEO_EXT
 
+
+""" 
+Register HEIC support in Pillow
+This allows Pillow to open and process HEIC/HEIF images.
+Without this, attempting to open HEIC files with Image.open() will fail.
+"""
+register_heif_opener()
 
 def get_date_taken(path):
     """
