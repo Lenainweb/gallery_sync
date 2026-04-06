@@ -30,13 +30,18 @@ def process():
 
             file_type = get_file_type(file)
             if not file_type:
-                continue
+                continue # skip unsupported files
 
             date = get_date_taken(path)
             year = str(date.year)
             month = f"{date.month:02}"
 
-            subfolder = "screenshots" if is_screenshot(file) else file_type
+            # determine subfolder
+            if file_type == "photo" and is_screenshot(file):
+                subfolder = "screenshots"
+            else:
+                subfolder = file_type
+                
             target_folder = os.path.join(TARGET, year, month, subfolder)
             os.makedirs(target_folder, exist_ok=True)
 
