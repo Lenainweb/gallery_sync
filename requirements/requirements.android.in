@@ -1,2 +1,2 @@
 -r requirements.txt
-pip-tools==7.5.3
+kivy==2.3.1 
