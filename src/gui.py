@@ -128,6 +128,8 @@ class GalleryApp(App):
     def update_status(self, text):
         self.status_label.text = f"Status: {text}"
 
+def main():
+    GalleryApp().run()
 
 if __name__ == "__main__":
-    GalleryApp().run()
+    main()

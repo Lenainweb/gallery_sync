@@ -1,10 +1,13 @@
 import sys
 
-from utils import process_gallery
+def main():
+    if "android" in sys.platform:
+        from gui import main as gui_main
+        gui_main()
+    else:
+        from cli import main as cli_main
+        cli_main()
 
 
 if __name__ == "__main__":
-    # Get source and target directories from command-line arguments
-    SOURCE = sys.argv[1]
-    TARGET = sys.argv[2]
-    process_gallery(SOURCE, TARGET)
+    main()
